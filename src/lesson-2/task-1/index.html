@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Filter</title>
+    <script src="./applyFilter.js"></script>
+</head>
+<body>
+    <div class="canvas-wrapper"></div>
+    <div class="btns-wrapper">
+        <button class="canvas-btn" data-filter="reset">Reset</button>
+        <button class="canvas-btn" data-filter="inverse">Inverse</button>
+        <button class="canvas-btn" data-filter="grayscale">Grayscale</button>
+        <button class="canvas-btn" data-filter="bright">Bright</button>
+    </div>
+    <style>
+        .canvas-btn {
+            padding: 10px 20px;
+            background-color: darkslateblue;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .canvas-btn:hover {
+            background-color: mediumslateblue;
+            transition: 0.3s;
+        }
+    </style>
+</body>
+</html>
