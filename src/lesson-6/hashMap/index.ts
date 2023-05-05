@@ -1,6 +1,6 @@
 import { HashMap } from "./HashMap";
 
-const map = new HashMap(50);
+const map = new HashMap(30);
 
 map.set('foo', 1);
 map.set(42, 10);

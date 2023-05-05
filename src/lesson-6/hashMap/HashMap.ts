@@ -92,7 +92,7 @@ export class HashMap {
     }
 
     has(key: any) {
-        key = (typeof key === 'object') ? JSON.stringify(key) : key;
+        key = (typeof key === 'object') ? JSON.stringify(key) : +key;
         let hash: number = this.hashing(key)!;
         let hasItem = this.getKey(this.buffer[hash], key, hash);
         return (hasItem == null || hasItem == undefined || hasItem == -1) ? false : true;
@@ -134,19 +134,25 @@ export class HashMap {
 
     increaseBuffer() {
         this.capacity = this.capacity * 2;
+        let oldBuffer = this.buffer;
         this.buffer = new Array(this.capacity).fill(null);
 
-        for (let i = 0; i < this.buffer.length; i++) {
-            if (this.buffer[i]) {
-                let [ key, value ] = Object.entries(this.buffer[i])[0];
-                let hash: number = this.hashing(key)!;
-                if (this.buffer[hash]) {
-                    let nextItem = this.buffer[hash].next;
-                    this.buffer[hash].next[key] = value;
-                    nextItem.prev = this.buffer[hash];
-                } else {
-                    this.buffer[hash] = {};
-                    this.buffer[hash][key] = value;
+        for (let i = 0; i < oldBuffer.length; i++) {
+            
+            if (oldBuffer[i]) {
+                if (!oldBuffer[i].next) {
+                    let key = Object.keys(oldBuffer[i])[0];
+                    this.set(key, oldBuffer[i][key]);
+                }
+                if (oldBuffer[i].next) {
+                    let item = oldBuffer[i];
+                    while(item) {
+                        let key: any = Object.keys(item)[0];
+                        key = (+key == key) ? +key : key;
+                        this.set(key, item[key]);
+                        item = item.next;
+                        
+                    }
                 }
             }
         }
