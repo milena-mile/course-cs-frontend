@@ -1,21 +1,23 @@
 import { random } from "./task-1.mjs";
 
-function take(iterable: IterableIterator<number>, amount: number): IterableIterator<number> {
+export function take(iterable: IterableIterator<number>, amount: number): IterableIterator<number> {
+    const innerIter = iterable[Symbol.iterator]();
     let counter = 0;
+    
     return {
         [Symbol.iterator]() {
             return this;
         },
 
         next() {
-            let chunk = iterable.next();
+            let chunk = innerIter.next();
 
             if (counter >= amount) {
                 return {value: undefined, done: true};
             }
             
             counter++;
-            chunk = iterable.next();
+            chunk = innerIter.next();
 
             return chunk;
         }
