@@ -11,14 +11,18 @@ res1.then((data) => {
   console.log(data);
 });
 
-const res2 = new Result(() => { throw 'Boom!'; });
+const res2 = new Result(() => {
+  throw "Boom!";
+});
 
-res1.then((data) => {
-  // Этот callback не вызовется
-  console.log(data);
+res1
+  .then((data) => {
+    // Этот callback не вызовется
+    console.log(data);
 
-// А этот вызовется
-}).catch(console.error);
+    // А этот вызовется
+  })
+  .catch(console.error);
 ```
 
 ## Необходимо используя генераторы создать аналог async/await для контейнера Result
@@ -29,10 +33,29 @@ exec(function* main() {
   console.log(yield result);
 
   try {
-    const res2 = new Result(() => { throw 'Boom!'; });
-
+    const res2 = new Result(() => {
+      throw "Boom!";
+    });
   } catch (err) {
     console.error(err);
   }
 });
+```
+
+# ДЗ к лекции База#20
+
+## Необходимо реализовать для типа Result интерфейс монады
+
+```js
+const res = new Result(() => 42);
+
+res.flatMap((value) => Result.Error("Boom")).catch(console.error);
+```
+
+## Необходимо реализовать для типа Result интерфейс функтора
+
+```js
+const res = new Result(() => 42);
+
+res.map((value) => value * 10).then(console.log); //420
 ```
