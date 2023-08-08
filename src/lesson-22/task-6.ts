@@ -1,5 +1,3 @@
-import { resolve } from "path";
-
 function allLimit(iterable: Iterable<Function>, limit: number) {
     return new Promise((resolve, reject) => {
         const promises = [...iterable],
